@@ -1,0 +1,21 @@
+import numpy as np
+import pandas as pd 
+def gradientDescent(x, y, theta, alpha, m, numIterations):
+    xTrans = x.transpose()
+    for i in range(0, numIterations):
+        hypothesis = np.dot(x, theta)
+        loss = hypothesis - y
+        cost = np.sum(loss ** 2) / (2 * m)
+        print("Iteration %d | Cost: %f" % (i, cost))
+        gradient = np.dot(xTrans, loss) / m
+        theta = theta - alpha * gradient
+    return theta
+df = pd.read_csv('C:\\Users\\india\\Desktop\\Fraction Absorbed Data.csv')
+x = df.iloc[:,0:10].to_numpy()
+y = df.iloc[:,10].to_numpy()
+m, n = np.shape(x)
+numIterations= 1000000
+alpha = 0.000006
+theta = np.ones(n)
+theta = gradientDescent(x, y, theta, alpha, m, numIterations)
+print(theta)
